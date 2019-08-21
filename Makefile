@@ -20,9 +20,16 @@ DARWIN_AMD64_NAME=$(BINARY_NAME)-darwin-amd64
 WINDOWS_386_NAME=$(BINARY_NAME)-windows-386
 WINDOWS_AMD64_NAME=$(BINARY_NAME)-windows-amd64
 
-all: build
+all: get build install clean
 
-build: main
+get:
+	$(GOGET) -u golang.org/x/crypto/ripemd160
+
+build:
+	$(GOBUILD) crypto
+
+install:
+	$(GOINSTALL) crypto
 
 test:
 	$(GOTEST) -v ./...
@@ -35,7 +42,3 @@ clean:
 run:
 	$(GOBUILD) -o $(BINARY_NAME) -v ./...
 	./$(BINARY_NAME)
-
-main:
-	$(GOBUILD) crypto
-	$(GOINSTALL) crypto
