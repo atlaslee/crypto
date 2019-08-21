@@ -1,0 +1,10 @@
+*.sublime*
+.DS_Store
+*.rdb
+dump*
+src
+src/*
+src/github.com
+src/golang.org
+pkg
+bin
