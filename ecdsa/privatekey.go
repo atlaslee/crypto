@@ -4,9 +4,8 @@ import (
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
+	"github.com/atlaslee/crypto"
 	"math/big"
-	"whaleroc"
-	"whaleroc/crypto"
 )
 
 const (
@@ -30,7 +29,7 @@ func (this *PrivateKey) Data() []byte {
 func (this *PrivateKey) SetData(bytes []byte) error {
 	if len(bytes) != LENOF_PRIVATEKEY {
 		println("PrivateKey.SetData", Base64Encode(bytes))
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = CRYPTOTYPEOF_ECDSA256_SHA256_RIPEMD160
@@ -43,7 +42,7 @@ func (this *PrivateKey) Mnemonics() (mnemonics []string) {
 }
 
 func (this *PrivateKey) String() string {
-	return Base64Encode(this.Data())
+	return Base64Encode(this.Bytes())
 }
 
 func (this *PrivateKey) SetMnemonics(mnemonics []string) error {
@@ -56,7 +55,7 @@ func (this *PrivateKey) SetString(str string) (err error) {
 		return
 	}
 
-	return this.SetData(bytes)
+	return this.SetBytes(bytes)
 }
 
 func (this *PrivateKey) Random() {
@@ -103,7 +102,7 @@ func (this *PrivateKey) Bytes() (bytes []byte) {
 
 func (this *PrivateKey) SetBytes(bytes []byte) error {
 	if len(bytes) != SIZEOF_PRIVATEKEY {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = bytes[0]

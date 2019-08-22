@@ -3,9 +3,8 @@ package ecdsa
 import (
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"github.com/atlaslee/crypto"
 	"math/big"
-	"whaleroc"
-	"whaleroc/crypto"
 )
 
 const (
@@ -39,7 +38,7 @@ func (this *PublicKey) Data() (data []byte) {
 
 func (this *PublicKey) SetData(bytes []byte) error {
 	if len(bytes) != LENOF_PUBLICKEY {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = CRYPTOTYPEOF_ECDSA256_SHA256_RIPEMD160
@@ -49,7 +48,7 @@ func (this *PublicKey) SetData(bytes []byte) error {
 }
 
 func (this *PublicKey) String() string {
-	return Base64Encode(this.Data())
+	return Base64Encode(this.Bytes())
 }
 
 func (this *PublicKey) SetString(str string) (err error) {
@@ -58,7 +57,7 @@ func (this *PublicKey) SetString(str string) (err error) {
 		return
 	}
 
-	return this.SetData(data)
+	return this.SetBytes(data)
 }
 
 func (this *PublicKey) PublicKey() *ecdsa.PublicKey {
@@ -87,7 +86,7 @@ func (this *PublicKey) Bytes() (bytes []byte) {
 
 func (this *PublicKey) SetBytes(bytes []byte) error {
 	if len(bytes) != SIZEOF_PUBLICKEY {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = bytes[0]

@@ -1,7 +1,7 @@
 package ecdsa
 
 import (
-	"whaleroc/crypto"
+	"github.com/atlaslee/crypto"
 )
 
 const (

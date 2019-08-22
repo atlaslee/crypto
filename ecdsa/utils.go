@@ -3,8 +3,8 @@ package ecdsa
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"github.com/atlaslee/crypto"
 	"golang.org/x/crypto/ripemd160"
-	"whaleroc/crypto"
 )
 
 func Ripemd160Encrypt(bytes []byte) []byte {

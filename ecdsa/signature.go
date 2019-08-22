@@ -1,9 +1,8 @@
 package ecdsa
 
 import (
+	"github.com/atlaslee/crypto"
 	"math/big"
-	"whaleroc"
-	"whaleroc/crypto"
 )
 
 const (
@@ -53,7 +52,7 @@ func (this *Signature) Data() (data []byte) {
 
 func (this *Signature) SetData(bytes []byte) error {
 	if len(bytes) != LENOF_SIGNATURE {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.r = big.NewInt(0).SetBytes(bytes[:LENOF_BIGINT])
@@ -65,7 +64,7 @@ func (this *Signature) SetData(bytes []byte) error {
 }
 
 func (this *Signature) String() string {
-	return Base64Encode(this.Data())
+	return Base64Encode(this.Bytes())
 }
 
 func (this *Signature) SetString(str string) (err error) {
@@ -74,7 +73,7 @@ func (this *Signature) SetString(str string) (err error) {
 		return
 	}
 
-	return this.SetData(data)
+	return this.SetBytes(data)
 }
 
 func (this *Signature) Hash() []byte {
@@ -102,7 +101,7 @@ func (this *Signature) Bytes() (bytes []byte) {
 
 func (this *Signature) SetBytes(bytes []byte) error {
 	if len(bytes) != SIZEOF_SIGNATURE {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = bytes[0]

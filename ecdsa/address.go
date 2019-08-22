@@ -2,8 +2,7 @@ package ecdsa
 
 import (
 	"bytes"
-	"whaleroc"
-	"whaleroc/crypto"
+	"github.com/atlaslee/crypto"
 )
 
 const (
@@ -25,7 +24,7 @@ func (this *Address) Data() []byte {
 
 func (this *Address) SetData(data []byte) (err error) {
 	if len(data) != LENOF_ADDRESS {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = CRYPTOTYPEOF_ECDSA256_SHA256_RIPEMD160
@@ -34,7 +33,7 @@ func (this *Address) SetData(data []byte) (err error) {
 }
 
 func (this *Address) String() string {
-	return Base64Encode(this.data)
+	return Base64Encode(this.Bytes())
 }
 
 func (this *Address) SetString(str string) (err error) {
@@ -43,7 +42,7 @@ func (this *Address) SetString(str string) (err error) {
 		return
 	}
 
-	this.SetData(data)
+	this.SetBytes(data)
 	return
 }
 
@@ -61,7 +60,7 @@ func (this *Address) Bytes() (b []byte) {
 
 func (this *Address) SetBytes(bytes []byte) error {
 	if len(bytes) != SIZEOF_ADDRESS {
-		return whaleroc.ERR_SIZEOF_BYTES_INCORRECT
+		return crypto.ERR_SIZEOF_BYTES_INCORRECT
 	}
 
 	this.crypto = bytes[0]
